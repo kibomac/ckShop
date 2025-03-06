@@ -29,6 +29,72 @@ function addDarkModeToggle() {
 // Load the menu when the page loads
 document.addEventListener('DOMContentLoaded', loadMenu);
 
+document.addEventListener('DOMContentLoaded', () => {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const cartButton = document.getElementById('cartButton');
+    const cartSection = document.getElementById('cartSection');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const checkoutButton = document.getElementById('checkoutButton');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    let cart = [];
+
+    // Dark mode toggle
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+
+    // Add to cart functionality
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+            const image = button.getAttribute('data-image');
+            const product = { name, price, image, quantity: 1 };
+
+            const existingProduct = cart.find(item => item.name === name);
+            if (existingProduct) {
+                existingProduct.quantity++;
+            } else {
+                cart.push(product);
+            }
+
+            updateCart();
+        });
+    });
+
+    // Update cart display
+    function updateCart() {
+        cartItems.innerHTML = '';
+        let total = 0;
+        cart.forEach(product => {
+            const item = document.createElement('div');
+            item.classList.add('cart-item');
+            item.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div>
+                    <h3>${product.name}</h3>
+                    <p>£${product.price.toFixed(2)} x ${product.quantity}</p>
+                </div>
+            `;
+            cartItems.appendChild(item);
+            total += product.price * product.quantity;
+        });
+        cartTotal.textContent = total.toFixed(2);
+        document.getElementById('cartCount').textContent = cart.length;
+    }
+
+    // Show cart section
+    cartButton.addEventListener('click', () => {
+        cartSection.classList.toggle('visible');
+    });
+
+    // Checkout functionality
+    checkoutButton.addEventListener('click', () => {
+        alert('Checkout functionality is not implemented yet.');
+    });
+});
+
 // Product Detail Page Script
 if (window.location.pathname.endsWith('product.html')) {
     // Get URL parameters
