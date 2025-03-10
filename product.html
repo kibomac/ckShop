@@ -8,14 +8,20 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <header></header>
+    <header>
+        <nav>
+            <div class="logo">MyShop</div>
+            <button id="darkModeToggle" class="toggle-btn">🌙</button>
+        </nav>
+    </header>
 
     <main>
         <section class="product-detail">
-            <img id="productImage" src="images/iphone_16_Pro_Max.jpeg" alt="iPhone 15 Pro Max">
+            <img id="productImage" src="images/iphone_16_Pro_Max.jpeg" alt="Product Image">
             <h2 id="productName"></h2>
             <p id="productPrice"></p>
             <p id="productDescription"></p>
+            <button class="btn add-to-cart" id="productAddToCart">Add to Cart</button>
             <h3>Reviews</h3>
             <form id="reviewForm">
                 <textarea id="reviewText" placeholder="Leave a review"></textarea>

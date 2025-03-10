@@ -20,10 +20,12 @@ function loadFooter() {
 // Function to add dark mode toggle functionality
 function addDarkModeToggle() {
     const darkModeToggle = document.getElementById('darkModeToggle');
-    darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-    });
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        });
+    }
 }
 
 // Function to handle contact form submission
@@ -47,23 +49,25 @@ function handleContactForm() {
 function updateCart() {
     const cartItems = document.getElementById('cartItems');
     const cartTotal = document.getElementById('cartTotal');
-    cartItems.innerHTML = '';
-    let total = 0;
-    cart.forEach(product => {
-        const item = document.createElement('div');
-        item.classList.add('cart-item');
-        item.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <div>
-                <h3>${product.name}</h3>
-                <p>£${product.price.toFixed(2)} x ${product.quantity}</p>
-            </div>
-        `;
-        cartItems.appendChild(item);
-        total += product.price * product.quantity;
-    });
-    cartTotal.textContent = total.toFixed(2);
-    document.getElementById('cartCount').textContent = cart.length;
+    if (cartItems && cartTotal) {
+        cartItems.innerHTML = '';
+        let total = 0;
+        cart.forEach(product => {
+            const item = document.createElement('div');
+            item.classList.add('cart-item');
+            item.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div>
+                    <h3>${product.name}</h3>
+                    <p>£${product.price.toFixed(2)} x ${product.quantity}</p>
+                </div>
+            `;
+            cartItems.appendChild(item);
+            total += product.price * product.quantity;
+        });
+        cartTotal.textContent = total.toFixed(2);
+        document.getElementById('cartCount').textContent = cart.length;
+    }
 }
 
 // Function to initialize cart functionality
@@ -95,14 +99,18 @@ function initializeCart() {
     });
 
     // Show cart section
-    cartButton.addEventListener('click', () => {
-        cartSection.classList.toggle('visible');
-    });
+    if (cartButton) {
+        cartButton.addEventListener('click', () => {
+            cartSection.classList.toggle('visible');
+        });
+    }
 
     // Checkout functionality
-    checkoutButton.addEventListener('click', () => {
-        alert('Checkout functionality is not implemented yet.');
-    });
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', () => {
+            alert('Checkout functionality is not implemented yet.');
+        });
+    }
 
     // Initialize cart count
     updateCart();
